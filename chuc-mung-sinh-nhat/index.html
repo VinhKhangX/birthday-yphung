@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Happy Birthday 💗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ============ BACKGROUND CINEMATIC LAYERS ============ -->
+  <div class="bg-gradient"></div>
+  <div class="bg-blur bg-blur-1"></div>
+  <div class="bg-blur bg-blur-2"></div>
+  <div class="bg-blur bg-blur-3"></div>
+  <canvas id="bg-particles"></canvas>
+
+  <!-- ============ PHẦN 1 : MÀN HÌNH MỞ KHÓA ============ -->
+  <section id="lock-screen" class="scene active">
+    <div class="lock-card glass">
+      <div class="lock-photo">
+        <div class="photo-frame">
+          <img id="main-photo" src="../img/main.jpg" alt="main"
+               onerror="this.style.display='none';this.parentNode.classList.add('no-image');" />
+          <div class="photo-fallback">💗</div>
+          <div class="photo-glow"></div>
+        </div>
+        <div class="lock-title">
+          <span class="lock-sub">A little gift for you</span>
+          <h1></h1>
+        </div>
+      </div>
+
+      <div class="lock-pad">
+        <div class="heart-top" id="heart-top">
+          <svg viewBox="0 0 24 24" width="34" height="34">
+            <path d="M12 21s-7.5-4.6-9.5-9.3C1 8.4 3.1 5 6.5 5c2 0 3.5 1.1 4.4 2.6C11.9 6.1 13.4 5 15.4 5 18.9 5 21 8.4 19.4 11.7 17.5 16.4 12 21 12 21z"
+                  fill="url(#hg)"/>
+            <defs>
+              <linearGradient id="hg" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#ff9ec4"/>
+                <stop offset="1" stop-color="#ff5c8a"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="dots" id="dots">
+          <span class="dot"></span><span class="dot"></span>
+          <span class="dot"></span><span class="dot"></span>
+        </div>
+
+        <div class="hint">💗 Sinh nhật hôm nay đó nha...</div>
+        <div class="err-msg" id="err-msg">Sai rồi nè 🥺</div>
+
+        <div class="keys" id="keys">
+          <button class="key" data-k="1">1</button>
+          <button class="key" data-k="2">2</button>
+          <button class="key" data-k="3">3</button>
+          <button class="key" data-k="4">4</button>
+          <button class="key" data-k="5">5</button>
+          <button class="key" data-k="6">6</button>
+          <button class="key" data-k="7">7</button>
+          <button class="key" data-k="8">8</button>
+          <button class="key" data-k="9">9</button>
+          <button class="key key-ghost" aria-hidden="true"></button>
+          <button class="key" data-k="0">0</button>
+          <button class="key key-back" data-k="back" aria-label="delete">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M9 5h11a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-7-7 7-7zm3.6 4.4L11.2 10.8 13.4 13l-2.2 2.2 1.4 1.4L14.8 14.4 17 16.6l1.4-1.4L16.2 13l2.2-2.2L17 9.4 14.8 11.6 12.6 9.4z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHUYỂN CẢNH ============ -->
+  <div id="transition">
+    <div class="flash"></div>
+  </div>
+
+  <!-- ============ PHẦN 2 : QUÀ + LỜI CHÚC ============ -->
+  <section id="gift-scene" class="scene">
+    <canvas id="fireworks"></canvas>
+
+    <div class="gift-wrap" id="gift-wrap">
+      <div class="gift-box" id="gift-box">
+        <div class="gift-shadow"></div>
+        <div class="gift-glow"></div>
+        <div class="box-lid">
+          <div class="ribbon-v"></div>
+          <div class="bow">
+            <span class="bow-l"></span>
+            <span class="bow-r"></span>
+            <span class="bow-c"></span>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="ribbon-v"></div>
+          <div class="ribbon-h"></div>
+        </div>
+        <div class="sparkle s1"></div>
+        <div class="sparkle s2"></div>
+        <div class="sparkle s3"></div>
+      </div>
+      <p class="tap-hint"></p>
+    </div>
+
+    <!-- Celebrate: polaroids nền, wish ẩn (bấm nút mới hiện đè lên ảnh) -->
+    <div class="celebrate" id="celebrate">
+      <div class="polaroids" id="polaroids"></div>
+
+      <!-- Nút Có thư nè -->
+      <button class="wish-toggle" id="wish-toggle" aria-label="Xem lời chúc">
+        <span class="wt-emoji">💌</span>
+        <span class="wt-text">Có thư nè</span>
+      </button>
+
+      <!-- Overlay lời chúc, mặc định ẩn -->
+      <div class="wish-overlay" id="wish-overlay" aria-hidden="true">
+        <div class="wish wish-pop">
+          <button class="wish-close" id="wish-close" aria-label="Đóng">×</button>
+          <div class="emoji-line">🎉</div>
+          <h2 class="wish-title">
+            <span class="tw" id="wish-line-1"></span>
+            <span class="tw name" id="wish-line-2"></span>
+          </h2>
+          <div class="emoji-line">🎂</div>
+          <p class="wish-body">
+            Chúc cậu luôn vui vẻ,<br/>
+            xinh đẹp, hạnh phúc,<br/>
+            mọi điều tốt đẹp nhất sẽ đến với cậu.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="balloons" id="balloons"></div>
+  </section>
+
+  <!-- ============ LIGHTBOX ẢNH ============ -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lb-backdrop" data-lb-close></div>
+    <button class="lb-close" id="lb-close" aria-label="Đóng">×</button>
+    <button class="lb-nav lb-prev" id="lb-prev" aria-label="Ảnh trước">‹</button>
+    <button class="lb-nav lb-next" id="lb-next" aria-label="Ảnh kế">›</button>
+    <div class="lb-stage">
+      <div class="lb-frame">
+        <img id="lb-img" alt="photo"/>
+        <div class="lb-heart">💗</div>
+      </div>
+      <div class="lb-counter" id="lb-counter">1 / 1</div>
+    </div>
+  </div>
+
+  <audio id="bgm" src="chumungsinhnhat.mp3" loop preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
